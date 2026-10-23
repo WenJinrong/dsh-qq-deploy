@@ -1,0 +1,43 @@
+{
+  "dsh": {
+    "baseUrl": "http://127.0.0.1:3080",
+    "provider": "deepseek-account",
+    "model": "deepseek-flash",
+    "reasoningEffort": "low",
+    "authToken": "",
+    "authHeader": "authorization",
+    "authPrefix": "Bearer",
+    "allowRemote": false
+  },
+  "role": {
+    "maxInjectChars": 6000
+  },
+  "snowluma": {
+    "wsUrl": "ws://127.0.0.1:3001",
+    "httpUrl": "http://127.0.0.1:3000",
+    "accessToken": "",
+    "followDiscoveredEndpoint": true,
+    "silenceWarnMs": 600000,
+    "launcherPath": "__INSTALL_DIR__\\SnowLuma\\launcher.bat",
+    "homeDir": "__INSTALL_DIR__\\SnowLuma"
+  },
+  "ownerQQ": 100000000,
+  "sessionCwd": "__INSTALL_DIR__",
+  "agentPreset": "qq-chat",
+  "workspaceTitle": "QQ 聊天",
+  "allow": {
+    "private": [
+      "100000000"
+    ],
+    "groups": []
+  },
+  "deny": {
+    "private": [],
+    "groups": []
+  },
+  "allowAllWhenEmpty": false,
+  "ackMessage": "",
+  "sendDelayMs": 300,
+  "consolePort": 3100,
+  "consoleToken": ""
+}
