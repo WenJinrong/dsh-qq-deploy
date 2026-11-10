@@ -232,7 +232,7 @@ if (-not $SkipSnowLuma) {
   $snowDir = Join-Path $InstallDir "SnowLuma"
   if (-not (Test-Path (Join-Path $snowDir "index.mjs"))) {
     Log "查询 SnowLuma 最新发行版"
-    $api = Invoke-RestMethod -Uri "https://api.github.com/repos/SnowLuma/SnowLuma/releases/latest" `
+    $api = Invoke-RestMethod -Uri "https://api.github.com/repos/TomyJan/SnowLuma/releases/latest" `
       -UseBasicParsing -Headers @{ "User-Agent" = "dsh-qq-deploy" } -TimeoutSec 60
     $asset = $api.assets | Where-Object { $_.name -like "*win-x64.zip" -and $_.name -notlike "*lite*" } | Select-Object -First 1
     if (-not $asset) { Fail "没找到 SnowLuma win-x64 发行包" }
@@ -280,3 +280,4 @@ Write-Host "  3) 接 SnowLuma：双击 $InstallDir\scripts\start-snowluma.cmd，
 Write-Host "     浏览器打开 http://127.0.0.1:5099，用窗口里的初始密码登录并接入 QQ 进程"
 Write-Host ""
 Write-Host "自检：powershell -File $InstallDir\scripts\verify.ps1" -ForegroundColor Cyan
+
