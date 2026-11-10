@@ -1,19 +1,16 @@
-# 依赖与产物
-node_modules/
+﻿# 渚濊禆涓庝骇鐗?node_modules/
 npm-global/
 tmp/
 *.zip
 *.log
 *.tgz
 
-# 运行期数据：绝不入库
+# 杩愯鏈熸暟鎹細缁濅笉鍏ュ簱
 qq-bridge/config.json
 qq-bridge/state/
-SnowLuma/
 .credentials.yaml
 .credentials.yaml.*
 
-# 编辑器
-.vscode/
+# 缂栬緫鍣?.vscode/
 .idea/
 *.swp
