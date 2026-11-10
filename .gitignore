@@ -14,3 +14,5 @@ qq-bridge/state/
 # 缂栬緫鍣?.vscode/
 .idea/
 *.swp
+!vendor/*.zip
+

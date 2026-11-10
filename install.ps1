@@ -120,8 +120,14 @@ foreach ($sub in @("scripts", "config")) {
 $nodeDir = Join-Path $InstallDir "node"
 if (-not (Test-Path (Join-Path $nodeDir "node.exe"))) {
   $nodeZip = Join-Path $InstallDir "tmp\node.zip"
-  $nodeUrl = "https://registry.npmmirror.com/-/binary/node/v$NodeVersion/node-v$NodeVersion-win-x64.zip"
-  Save-File $nodeUrl $nodeZip
+  $nodeVendor = Join-Path $here "vendor\node-v$NodeVersion-win-x64.zip"
+  if (Test-Path $nodeVendor) {
+    Copy-Item $nodeVendor $nodeZip -Force
+    Ok "使用仓库内置 Node.js $NodeVersion"
+  } else {
+    $nodeUrl = "https://registry.npmmirror.com/-/binary/node/v$NodeVersion/node-v$NodeVersion-win-x64.zip"
+    Save-File $nodeUrl $nodeZip
+  }
   $tmp = Join-Path $InstallDir "tmp\node-x"
   Expand-Zip $nodeZip $tmp
   Move-SingleChild $tmp $nodeDir
@@ -164,7 +170,13 @@ if (-not (Test-Path (Join-Path $npmGlobal "dsh.cmd"))) {
 $bridgeDir = Join-Path $InstallDir "qq-bridge"
 if (-not (Test-Path (Join-Path $bridgeDir "package.json"))) {
   $bridgeZip = Join-Path $InstallDir "tmp\qq-bridge.zip"
-  Save-File "https://codeload.github.com/Derpyu520/qq-bridge/zip/refs/heads/main" $bridgeZip
+  $bridgeVendor = Join-Path $here "vendor\qq-bridge.zip"
+  if (Test-Path $bridgeVendor) {
+    Copy-Item $bridgeVendor $bridgeZip -Force
+    Ok "使用仓库内置 qq-bridge"
+  } else {
+    Save-File "https://codeload.github.com/Derpyu520/qq-bridge/zip/refs/heads/main" $bridgeZip
+  }
   $tmp = Join-Path $InstallDir "tmp\qq-bridge-x"
   Expand-Zip $bridgeZip $tmp
   Move-SingleChild $tmp $bridgeDir
@@ -231,14 +243,20 @@ try {
 if (-not $SkipSnowLuma) {
   $snowDir = Join-Path $InstallDir "SnowLuma"
   if (-not (Test-Path (Join-Path $snowDir "index.mjs"))) {
-    Log "查询 SnowLuma 最新发行版"
-    $api = Invoke-RestMethod -Uri "https://api.github.com/repos/TomyJan/SnowLuma/releases/latest" `
-      -UseBasicParsing -Headers @{ "User-Agent" = "dsh-qq-deploy" } -TimeoutSec 60
-    $asset = $api.assets | Where-Object { $_.name -like "*win-x64.zip" -and $_.name -notlike "*lite*" } | Select-Object -First 1
-    if (-not $asset) { Fail "没找到 SnowLuma win-x64 发行包" }
-    Log "使用 $($asset.name)"
     $zip = Join-Path $InstallDir "tmp\snowluma.zip"
-    Save-File $asset.browser_download_url $zip
+    $snowVendor = Join-Path $here "vendor\SnowLuma-v2.4.2-win-x64.zip"
+    if (Test-Path $snowVendor) {
+      Copy-Item $snowVendor $zip -Force
+      Ok "使用仓库内置 SnowLuma 2.4.2"
+    } else {
+      Log "查询 SnowLuma 最新发行版"
+      $api = Invoke-RestMethod -Uri "https://api.github.com/repos/TomyJan/SnowLuma/releases/latest" `
+        -UseBasicParsing -Headers @{ "User-Agent" = "dsh-qq-deploy" } -TimeoutSec 60
+      $asset = $api.assets | Where-Object { $_.name -like "*win-x64.zip" -and $_.name -notlike "*lite*" } | Select-Object -First 1
+      if (-not $asset) { Fail "没找到 SnowLuma win-x64 发行包" }
+      Log "使用 $($asset.name)"
+      Save-File $asset.browser_download_url $zip
+    }
     Expand-Zip $zip $snowDir
     Ok "SnowLuma 已解压：$snowDir"
   } else {
