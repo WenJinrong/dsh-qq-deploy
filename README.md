@@ -1,4 +1,4 @@
-# QQ ↔ DeepSeek Harness 一键部署（Windows）
+﻿# QQ ↔ DeepSeek Harness 一键部署（Windows）
 
 把 **DeepSeek Harness（无头 Web）+ qq-bridge + SnowLuma** 装在任意一台 Windows 机器上，
 让 QQ 机器人 7×24 在线，不依赖你日常用的那台电脑。
@@ -25,7 +25,7 @@ QQ NT 客户端  ──hook──►  SnowLuma（OneBot v11：WS 3001 / HTTP 300
 | Node.js 24.22.1 | npmmirror 二进制镜像 | 便携版，不污染系统 |
 | DSH | npm `@deepseek-ai/dsh` | 无头 web，固定 3080 |
 | qq-bridge | GitHub `Derpyu520/qq-bridge` | MIT |
-| SnowLuma | GitHub Releases `SnowLuma/SnowLuma` | 源码可见非商业许可，脚本只下载官方发行包，不改不打包 |
+| SnowLuma | GitHub Releases `TomyJan/SnowLuma`（官方镜像） | 源码可见非商业许可，脚本只下载官方发行包，不改不打包 |
 
 ---
 
@@ -34,7 +34,7 @@ QQ NT 客户端  ──hook──►  SnowLuma（OneBot v11：WS 3001 / HTTP 300
 在**管理员** PowerShell 里：
 
 ```powershell
-git clone https://github.com/<you>/dsh-qq-deploy.git C:\deploy
+git clone https://github.com/WenJinrong/dsh-qq-deploy.git C:\deploy
 cd C:\deploy
 powershell -ExecutionPolicy Bypass -File .\install.ps1 -OwnerQQ 2928845553
 ```
@@ -148,3 +148,4 @@ http://127.0.0.1:3100
 - SnowLuma 是第三方项目，与腾讯/QQ 无隶属关系，使用前读它的 EULA 与《QQ 用户协议》；**用机器人小号，别用主号**。
 - qq-bridge 是 MIT；DSH 是 MIT。
 - 本仓库只包含部署脚本和配置模板，不包含 SnowLuma 二进制、不包含任何账号凭据。
+
